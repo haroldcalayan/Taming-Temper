@@ -118,9 +118,7 @@ dependencies {
     implementation(libs.kotlinx.serialization.json)
     //Timber
     implementation(libs.timber)
-    /*//PdfViewer
-    implementation(libs.pdfViewer)
     //Coil
-    implementation(libs.coil)*/
+    implementation(libs.coil)
 
 }

@@ -12,14 +12,9 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.offset
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
-import androidx.compose.foundation.layout.wrapContentSize
 import androidx.compose.foundation.lazy.LazyColumn
-import androidx.compose.foundation.lazy.grid.GridCells
-import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
-import androidx.compose.foundation.lazy.grid.items
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
@@ -31,6 +26,8 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import coil.compose.AsyncImage
+import coil.compose.rememberImagePainter
 import com.haroldcalayan.tamingtemper.R
 import com.haroldcalayan.tamingtemper.data.source.remote.model.Activity
 import com.haroldcalayan.tamingtemper.data.source.remote.model.TamingActivityResponse
@@ -42,17 +39,16 @@ fun Chapter(state: TamingActivityResponse?) {
             .background(Color.White),
         verticalArrangement = Arrangement.Top
     ) {
-            items(state?.levels.orEmpty()) {
-                Column {
-                    Level(
-                        title = it.title ?: "",
-                        description = it.description ?: "",
-                        level = it.level ?: ""
-                    )
-                    ActivityItem(activities = it.activities)
-                }
+        items(state?.levels.orEmpty()) {
+            Column {
+                Level(
+                    title = it.title ?: "",
+                    description = it.description ?: "",
+                    level = it.level ?: ""
+                )
+                ActivityItems(activities = it.activities, it.state.orEmpty() == "LOCKED")
             }
-
+        }
     }
 }
 
@@ -99,38 +95,79 @@ fun Level(
 
         Spacer(modifier = Modifier.height(12.dp))
         Text(text = title, fontSize = 16.sp, fontWeight = FontWeight.Bold)
-        Text(text = description, textAlign = TextAlign.Center, fontSize = 14.sp, color = Color.LightGray)
+        Text(
+            text = description,
+            textAlign = TextAlign.Center,
+            fontSize = 14.sp,
+            color = Color.Gray
+        )
     }
 }
 
 @Composable
-fun ActivityItem(activities: List<Activity>?) {
+fun ActivityItems(activities: List<Activity>?, isLocked: Boolean) {
     Column {
-        Spacer(modifier = Modifier.height(15.dp))
-        
-        LazyVerticalGrid(
-            columns = GridCells.Fixed(2),
-            modifier = Modifier.height(250.dp)
-        ) {
-
-            items(activities ?: emptyList()) {
-                Column(
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .padding(16.dp),
-                    verticalArrangement = Arrangement.Center,
-                    horizontalAlignment = Alignment.CenterHorizontally
+        activities.orEmpty().groupIntoPairs().map {
+            val equalModifier = Modifier.weight(1f)
+            if (it.second != null) {
+                Row(
+                    horizontalArrangement = Arrangement.SpaceBetween,
+                    modifier = Modifier.fillMaxWidth()
                 ) {
-                    Image(
-                        painter = painterResource(id = R.drawable.lesson_not_selected),
-                        contentDescription = "activity_icon",
-                        modifier = Modifier.size(width = 102.dp, height = 86.dp),
-                        contentScale = ContentScale.Fit
-                    )
-                    Spacer(modifier = Modifier.height(12.dp))
-                    Text(text = it.title ?: "", fontSize = 14.sp, textAlign = TextAlign.Center)
+                    ActivityItemContent(it.first, equalModifier, isLocked)
+                    ActivityItemContent(it.second!!, equalModifier, isLocked)
+                }
+            } else {
+                Row(
+                    horizontalArrangement = Arrangement.Center,
+                    modifier = Modifier.fillMaxWidth()
+                ) {
+                    ActivityItemContent(it.first, Modifier.fillMaxWidth(.5f), isLocked)
                 }
             }
+        }
+    }
+}
+
+@Composable
+fun ActivityItemContent(activity: Activity, equalModifier: Modifier, isLocked: Boolean) {
+    Column(
+        verticalArrangement = Arrangement.Center,
+        horizontalAlignment = Alignment.CenterHorizontally,
+        modifier = equalModifier.padding(16.dp)
+    ) {
+        val imageModifier = Modifier.fillMaxWidth()
+        val textModifier = Modifier.fillMaxWidth()
+
+        // Load image dynamically from URL with a placeholder
+        val imageUrl = if (isLocked) {
+            activity.lockedIcon?.file?.url
+        } else activity.icon?.file?.url
+        AsyncImage(
+            model = imageUrl,
+            placeholder = painterResource(id = R.drawable.baseline_photo),
+            error = painterResource(id = R.drawable.baseline_photo),
+            contentDescription = "Activity Icon",
+            modifier = Modifier.fillMaxWidth(),
+            contentScale = ContentScale.FillWidth
+        )
+
+        Spacer(modifier = Modifier.height(12.dp))
+        Text(
+            text = activity.title ?: "",
+            fontSize = 14.sp,
+            textAlign = TextAlign.Center,
+            modifier = textModifier
+        )
+    }
+}
+
+fun <T> List<T>.groupIntoPairs(): List<Pair<T, T?>> {
+    return this.chunked(2) { chunk ->
+        when (chunk.size) {
+            2 -> chunk[0] to chunk[1]
+            1 -> chunk[0] to null
+            else -> throw IllegalStateException("Unexpected chunk size: ${chunk.size}")
         }
     }
 }

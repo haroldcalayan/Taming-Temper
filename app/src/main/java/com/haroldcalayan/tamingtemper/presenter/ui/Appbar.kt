@@ -24,6 +24,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
@@ -33,7 +34,7 @@ import com.haroldcalayan.tamingtemper.R
 @Composable
 fun Appbar() {
     val color = MaterialTheme.colorScheme.primary
-    val progressPercentage = 3f
+    val progressPercentage = .4f
     Row(
         modifier = Modifier
             .fillMaxWidth()
@@ -49,13 +50,13 @@ fun Appbar() {
             Image(
                 painter = painterResource(id = R.drawable.journey_con),
                 contentDescription = "App Logo",
-                modifier = Modifier.size(24.dp),
+                modifier = Modifier.size(36.dp),
                 contentScale = ContentScale.Fit
             )
             Spacer(modifier = Modifier.width(8.dp))
 
             Column {
-                Text(text = "Taming temper", fontSize = 18.sp, color = color)
+                Text(text = "Taming temper", fontSize = 18.sp, fontWeight = FontWeight.Bold, color = Color.Black)
 
                 Row(
                     verticalAlignment = Alignment.CenterVertically
@@ -66,13 +67,13 @@ fun Appbar() {
                             .width(100.dp),
                         color = color,
                         trackColor = Color.Gray,
-                        progress = progressPercentage / 100f
+                        progress = progressPercentage
                     )
 
                     Spacer(modifier = Modifier.width(8.dp))
 
                     Text(
-                        text = "$progressPercentage%",
+                        text = "${progressPercentage*10}%",
                         fontSize = 12.sp,
                         color = color
                     )
@@ -101,7 +102,7 @@ fun Appbar() {
             Image(
                 painter = painterResource(id = R.drawable.trailing),
                 contentDescription = "profile",
-                modifier = Modifier.size(24.dp),
+                modifier = Modifier.size(45.dp),
                 contentScale = ContentScale.Fit
             )
 
