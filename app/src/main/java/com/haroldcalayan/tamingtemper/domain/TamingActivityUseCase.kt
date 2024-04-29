@@ -6,7 +6,6 @@ import com.haroldcalayan.tamingtemper.data.repository.TamingTemperRepository
 import com.haroldcalayan.tamingtemper.data.source.remote.model.TamingActivityResponse
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
-import timber.log.Timber
 import javax.inject.Inject
 
 class TamingActivityUseCase @Inject constructor(

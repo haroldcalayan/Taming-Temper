@@ -27,7 +27,6 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import coil.compose.AsyncImage
-import coil.compose.rememberImagePainter
 import com.haroldcalayan.tamingtemper.R
 import com.haroldcalayan.tamingtemper.data.source.remote.model.Activity
 import com.haroldcalayan.tamingtemper.data.source.remote.model.TamingActivityResponse
@@ -136,10 +135,8 @@ fun ActivityItemContent(activity: Activity, equalModifier: Modifier, isLocked: B
         horizontalAlignment = Alignment.CenterHorizontally,
         modifier = equalModifier.padding(16.dp)
     ) {
-        val imageModifier = Modifier.fillMaxWidth()
         val textModifier = Modifier.fillMaxWidth()
 
-        // Load image dynamically from URL with a placeholder
         val imageUrl = if (isLocked) {
             activity.lockedIcon?.file?.url
         } else activity.icon?.file?.url

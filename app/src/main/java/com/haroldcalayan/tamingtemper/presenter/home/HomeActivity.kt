@@ -47,7 +47,6 @@ class HomeActivity : ComponentActivity() {
                                 ErrorMessage(state.value.message)
                             }
                         }
-
                     }
                 }
             }
