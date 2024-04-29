@@ -27,7 +27,8 @@ class TamingStorageRepository @Inject constructor(
     suspend fun saveTamingActivityValue(configurationValue: TamingActivityResponse) {
         withContext(Dispatchers.IO) {
             context.dataStore.edit { pref ->
-                pref[stringPreferencesKey(PreferenceKey.TAMING_ACTIVITY)] = jsonUtil.encodeToString(configurationValue)
+                pref[stringPreferencesKey(PreferenceKey.TAMING_ACTIVITY)] =
+                    jsonUtil.encodeToString(configurationValue)
             }
         }
     }
@@ -35,7 +36,11 @@ class TamingStorageRepository @Inject constructor(
     suspend fun getTamingActivityValue(): TamingActivityResponse? {
         return withContext(Dispatchers.IO) {
             context.dataStore.data.map { preferences ->
-                preferences[stringPreferencesKey(PreferenceKey.TAMING_ACTIVITY)]?.let { jsonUtil.decodeFromString<TamingActivityResponse>(it) }
+                preferences[stringPreferencesKey(PreferenceKey.TAMING_ACTIVITY)]?.let {
+                    jsonUtil.decodeFromString<TamingActivityResponse>(
+                        it
+                    )
+                }
             }.firstOrNull()
         }
     }

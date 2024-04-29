@@ -19,7 +19,7 @@ object UseCaseModule {
         tamingTemperRepository: TamingTemperRepository,
         tamingStorage: TamingStorageRepository
     ): TamingActivityUseCase {
-       return TamingActivityUseCase(tamingTemperRepository, tamingStorage)
+        return TamingActivityUseCase(tamingTemperRepository, tamingStorage)
     }
 
 }

@@ -18,13 +18,16 @@ object RepositoryModule {
 
     @Provides
     @Singleton
-    fun provideCurrencyRepository(tamingApi: TamingApi, tamingStorage: TamingStorageRepository): TamingTemperRepository {
+    fun provideCurrencyRepository(
+        tamingApi: TamingApi,
+        tamingStorage: TamingStorageRepository
+    ): TamingTemperRepository {
         return TamingTemperRepositoryImpl(tamingApi, tamingStorage)
     }
 
     @Provides
     @Singleton
-    fun provideTamingApi(@ApplicationContext context: Context): TamingApi  {
+    fun provideTamingApi(@ApplicationContext context: Context): TamingApi {
         return TamingApi(context)
     }
 }

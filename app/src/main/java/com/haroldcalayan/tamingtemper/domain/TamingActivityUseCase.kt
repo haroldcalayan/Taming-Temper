@@ -9,16 +9,6 @@ import kotlinx.coroutines.flow.flow
 import timber.log.Timber
 import javax.inject.Inject
 
-//class TamingActivityUseCase @Inject constructor(
-//    private val repository: TamingTemperRepository
-//) {
-//    val tamingActivity = repository.tamingActivity
-//
-//    suspend fun load() {
-//        repository.loadLatestTamingActivity()
-//    }
-//}
-
 class TamingActivityUseCase @Inject constructor(
     private val repository: TamingTemperRepository,
     private val tamingStorageRepository: TamingStorageRepository
@@ -28,13 +18,10 @@ class TamingActivityUseCase @Inject constructor(
             emit(Resource.Loading())
             val data = repository.getLatestTamingActivity()
             emit(Resource.Success(data))
-            Timber.d("TamingActivity -> success")
         } catch (e: Throwable) {
             tamingStorageRepository.getTamingActivityValue()?.let {
-                Timber.d("TamingActivity -> $it")
                 emit(Resource.Success(it))
             } ?: run {
-                Timber.d("TamingActivity -> Error")
                 emit(Resource.Error("Can't Load Taming Activity"))
             }
         }

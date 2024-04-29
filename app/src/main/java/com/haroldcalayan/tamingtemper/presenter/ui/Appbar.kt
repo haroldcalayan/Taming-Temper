@@ -11,10 +11,6 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.AccountCircle
-import androidx.compose.material.icons.filled.Favorite
-import androidx.compose.material3.Icon
 import androidx.compose.material3.LinearProgressIndicator
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
@@ -56,7 +52,12 @@ fun Appbar() {
             Spacer(modifier = Modifier.width(8.dp))
 
             Column {
-                Text(text = "Taming temper", fontSize = 18.sp, fontWeight = FontWeight.Bold, color = Color.Black)
+                Text(
+                    text = "Taming temper",
+                    fontSize = 18.sp,
+                    fontWeight = FontWeight.Bold,
+                    color = Color.Black
+                )
 
                 Row(
                     verticalAlignment = Alignment.CenterVertically
@@ -73,7 +74,7 @@ fun Appbar() {
                     Spacer(modifier = Modifier.width(8.dp))
 
                     Text(
-                        text = "${progressPercentage*10}%",
+                        text = "${progressPercentage * 10}%",
                         fontSize = 12.sp,
                         color = color
                     )

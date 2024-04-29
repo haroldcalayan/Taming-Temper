@@ -38,9 +38,11 @@ class HomeActivity : ComponentActivity() {
                             is Resource.Success -> {
                                 WeekTabLayout(state = state.value.data)
                             }
+
                             is Resource.Loading -> {
                                 Loading()
                             }
+
                             is Resource.Error -> {
                                 ErrorMessage(state.value.message)
                             }
