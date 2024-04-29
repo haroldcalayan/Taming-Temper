@@ -12,8 +12,10 @@ import androidx.compose.material3.Surface
 import androidx.compose.runtime.collectAsState
 import androidx.compose.ui.Modifier
 import com.haroldcalayan.tamingtemper.common.Resource
-import com.haroldcalayan.tamingtemper.presenter.ui.WeekTabLayout
 import com.haroldcalayan.tamingtemper.presenter.ui.Appbar
+import com.haroldcalayan.tamingtemper.presenter.ui.ErrorMessage
+import com.haroldcalayan.tamingtemper.presenter.ui.Loading
+import com.haroldcalayan.tamingtemper.presenter.ui.WeekTabLayout
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -36,7 +38,12 @@ class HomeActivity : ComponentActivity() {
                             is Resource.Success -> {
                                 WeekTabLayout(state = state.value.data)
                             }
-                            else -> {}
+                            is Resource.Loading -> {
+                                Loading()
+                            }
+                            is Resource.Error -> {
+                                ErrorMessage(state.value.message)
+                            }
                         }
 
                     }

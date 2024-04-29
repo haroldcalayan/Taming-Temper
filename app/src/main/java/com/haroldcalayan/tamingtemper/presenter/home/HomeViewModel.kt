@@ -6,7 +6,12 @@ import com.haroldcalayan.tamingtemper.common.Resource
 import com.haroldcalayan.tamingtemper.data.source.remote.model.TamingActivityResponse
 import com.haroldcalayan.tamingtemper.domain.TamingActivityUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.flow.asStateFlow
+import kotlinx.coroutines.flow.lastOrNull
+import kotlinx.coroutines.flow.launchIn
+import kotlinx.coroutines.flow.onEach
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
@@ -15,16 +20,17 @@ class HomeViewModel@Inject constructor(
     private val tamingActivityUseCase: TamingActivityUseCase
 ) : ViewModel() {
 
-    val tamingActivity: StateFlow<Resource<TamingActivityResponse>> = tamingActivityUseCase.tamingActivity
+    private val _tamingActivity = MutableStateFlow<Resource<TamingActivityResponse>>(Resource.Loading())
+    val tamingActivity = _tamingActivity.asStateFlow()
 
     init {
         loadTamingActivity()
     }
 
     private fun loadTamingActivity() {
-        viewModelScope.launch {
-            tamingActivityUseCase.load()
-        }
+        tamingActivityUseCase().onEach { result ->
+            _tamingActivity.value = result
+        }.launchIn(viewModelScope)
     }
 
 }

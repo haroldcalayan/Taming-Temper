@@ -6,7 +6,7 @@ import com.haroldcalayan.tamingtemper.data.source.remote.model.TamingActivityRes
 import kotlinx.coroutines.delay
 
 class TamingApi(private val context: Context) {
-    suspend fun getTamingApi(): TamingActivityResponse {
+    fun getTamingApi(): TamingActivityResponse {
         val jsonString = context.assets.open("response_1709543815894.json").bufferedReader().use {it.readText()}
         return Gson().fromJson(jsonString, TamingActivityResponse::class.java)
     }
