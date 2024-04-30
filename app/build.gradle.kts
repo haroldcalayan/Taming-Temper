@@ -39,7 +39,7 @@ android {
         ksp {
             arg("room.schemaLocation", "$projectDir/schemas")
         }
-        buildConfigField("String","RESPONSE_JSON_FILE", "response_1709543815894.json")
+        buildConfigField("String","RESPONSE_JSON_FILE", "\"response_1709543815894.json\"")
     }
     buildTypes {
         getByName("release") {
