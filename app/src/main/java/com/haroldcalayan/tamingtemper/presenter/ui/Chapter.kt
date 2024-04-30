@@ -22,6 +22,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
@@ -45,7 +46,7 @@ fun Chapter(state: TamingActivityResponse?) {
                     description = it.description.orEmpty(),
                     level = it.level.orEmpty()
                 )
-                ActivityItems(activities = it.activities, it.state.orEmpty() == "LOCKED")
+                ActivityItems(activities = it.activities, it.state.orEmpty() == stringResource(R.string.state_locked))
             }
         }
     }
@@ -83,7 +84,7 @@ fun Level(
                     .padding(8.dp)
             ) {
                 Text(
-                    text = "LEVEL $level",
+                    text = stringResource(R.string.level, level),
                     color = Color.White,
                     fontSize = 12.sp,
                     textAlign = TextAlign.Center,

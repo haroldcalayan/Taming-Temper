@@ -7,10 +7,12 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.sp
+import com.haroldcalayan.tamingtemper.R
 
 @Composable
-fun ErrorMessage(e: String? = "Unknown Error") {
+fun ErrorMessage(e: String? = stringResource(R.string.unknown_error)) {
     Column(
         modifier = Modifier.fillMaxSize(),
         verticalArrangement = Arrangement.Center,

@@ -18,15 +18,25 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.sp
+import com.haroldcalayan.tamingtemper.R
 import com.haroldcalayan.tamingtemper.data.source.remote.model.TamingActivityResponse
 
 @Composable
 fun WeekTabLayout(state: TamingActivityResponse?) {
     var selectedTabIndex by remember { mutableStateOf(0) }
 
-    val daysOfWeek = listOf("Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun")
+    val daysOfWeek = listOf(
+        stringResource(R.string.day_mon),
+        stringResource(R.string.day_tue),
+        stringResource(R.string.day_wed),
+        stringResource(R.string.day_thu),
+        stringResource(R.string.day_fri),
+        stringResource(R.string.day_sat),
+        stringResource(R.string.day_sun)
+    )
     val selectedDay = remember { mutableStateOf(daysOfWeek[selectedTabIndex]) }
 
     Column(

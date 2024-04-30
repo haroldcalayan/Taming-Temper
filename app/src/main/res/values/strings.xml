@@ -1,3 +1,14 @@
 <resources>
     <string name="app_name">Taming Temper</string>
+    <string name="day_mon">Mon</string>
+    <string name="day_tue">Tue</string>
+    <string name="day_wed">Wed</string>
+    <string name="day_thu">Thu</string>
+    <string name="day_fri">Fri</string>
+    <string name="day_sat">Sat</string>
+    <string name="day_sun">Sun</string>
+    <string name="state_locked">LOCKED</string>
+    <string name="unknown_error">Unknown Error</string>
+    <string name="level">LEVEL %1$s</string>
+    <string name="taming_temper">Taming temper</string>
 </resources>
