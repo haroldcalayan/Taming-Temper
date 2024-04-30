@@ -1,7 +1,7 @@
 package com.haroldcalayan.tamingtemper.di
 
 import android.content.Context
-import com.haroldcalayan.tamingtemper.data.repository.TamingStorageRepository
+import com.haroldcalayan.tamingtemper.common.DataStorageHelper
 import com.haroldcalayan.tamingtemper.data.repository.TamingTemperRepository
 import com.haroldcalayan.tamingtemper.data.repository.TamingTemperRepositoryImpl
 import com.haroldcalayan.tamingtemper.data.source.remote.api.TamingApi
@@ -20,9 +20,9 @@ object RepositoryModule {
     @Singleton
     fun provideCurrencyRepository(
         tamingApi: TamingApi,
-        tamingStorage: TamingStorageRepository
+        dataStorageHelper: DataStorageHelper
     ): TamingTemperRepository {
-        return TamingTemperRepositoryImpl(tamingApi, tamingStorage)
+        return TamingTemperRepositoryImpl(tamingApi, dataStorageHelper)
     }
 
     @Provides

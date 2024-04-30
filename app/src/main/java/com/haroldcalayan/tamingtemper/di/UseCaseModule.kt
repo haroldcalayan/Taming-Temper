@@ -1,6 +1,6 @@
 package com.haroldcalayan.tamingtemper.di
 
-import com.haroldcalayan.tamingtemper.data.repository.TamingStorageRepository
+import com.haroldcalayan.tamingtemper.common.DataStorageHelper
 import com.haroldcalayan.tamingtemper.data.repository.TamingTemperRepository
 import com.haroldcalayan.tamingtemper.domain.TamingActivityUseCase
 import dagger.Module
@@ -17,9 +17,9 @@ object UseCaseModule {
     @Singleton
     fun provideTamingActivityUseCase(
         tamingTemperRepository: TamingTemperRepository,
-        tamingStorage: TamingStorageRepository
+        dataStorageHelper: DataStorageHelper
     ): TamingActivityUseCase {
-        return TamingActivityUseCase(tamingTemperRepository, tamingStorage)
+        return TamingActivityUseCase(tamingTemperRepository, dataStorageHelper)
     }
 
 }
