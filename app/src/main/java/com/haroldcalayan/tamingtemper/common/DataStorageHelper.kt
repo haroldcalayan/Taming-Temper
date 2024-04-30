@@ -24,19 +24,25 @@ class DataStorageHelper @Inject constructor(
 
     internal suspend inline fun <reified T> saveValue(key: String, value: T) {
         withContext(Dispatchers.IO) {
-            context.dataStore.edit { pref ->
-                pref[stringPreferencesKey(key)] = jsonUtil.encodeToString(value)
-            }
+            try {
+                context.dataStore.edit { pref ->
+                    pref[stringPreferencesKey(key)] = jsonUtil.encodeToString(value)
+                }
+            } catch (_: Throwable) {}
         }
     }
 
     internal suspend inline fun <reified T> getValue(key: String, defaultValue: T? = null): T? {
         return withContext(Dispatchers.IO) {
-            context.dataStore.data.map { preferences ->
-                preferences[stringPreferencesKey(key)]?.let {
-                    jsonUtil.decodeFromString<T>(it)
-                } ?: defaultValue
-            }.firstOrNull()
+            try {
+                context.dataStore.data.map { preferences ->
+                    preferences[stringPreferencesKey(key)]?.let {
+                        jsonUtil.decodeFromString<T>(it)
+                    } ?: defaultValue
+                }.firstOrNull()
+            } catch (e: Throwable) {
+                null
+            }
         }
     }
 }
