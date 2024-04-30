@@ -39,6 +39,7 @@ android {
         ksp {
             arg("room.schemaLocation", "$projectDir/schemas")
         }
+        buildConfigField("String","RESPONSE_JSON_FILE", "\"response_1709543815894.json\"")
     }
     buildTypes {
         getByName("release") {
@@ -63,7 +64,7 @@ android {
     composeOptions {
         kotlinCompilerExtensionVersion = libs.versions.androidxComposeCompiler.get()
     }
-    packagingOptions {
+    packaging {
         resources {
             excludes += "/META-INF/{AL2.0,LGPL2.1}"
         }

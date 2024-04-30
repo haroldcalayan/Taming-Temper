@@ -41,9 +41,9 @@ fun Chapter(state: TamingActivityResponse?) {
         items(state?.levels.orEmpty()) {
             Column {
                 Level(
-                    title = it.title ?: "",
-                    description = it.description ?: "",
-                    level = it.level ?: ""
+                    title = it.title.orEmpty(),
+                    description = it.description.orEmpty(),
+                    level = it.level.orEmpty()
                 )
                 ActivityItems(activities = it.activities, it.state.orEmpty() == "LOCKED")
             }
