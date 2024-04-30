@@ -35,7 +35,6 @@ fun WeekTabLayout(state: TamingActivityResponse?) {
             .wrapContentHeight(),
         verticalArrangement = Arrangement.Bottom
     ) {
-        // Add a Row for the RadioButtons
         Row(Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.SpaceEvenly) {
             daysOfWeek.forEachIndexed { index, day ->
                 RadioButton(
@@ -50,7 +49,6 @@ fun WeekTabLayout(state: TamingActivityResponse?) {
                 )
             }
         }
-        // Add a TabRow for the tabs
         TabRow(
             selectedTabIndex = selectedTabIndex,
             contentColor = Color.Black
